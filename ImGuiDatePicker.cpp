@@ -152,7 +152,11 @@ namespace ImGui
         std::time_t currentTime = std::chrono::system_clock::to_time_t(now);
 
         tm res;
+    #ifdef _WIN32
         gmtime_s(&res, &currentTime);
+    #else
+        gmtime_r(&currentTime, &res);
+    #endif
 
         return res;
     }
